@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform, useInView } from "motion/react";
 import logoImg from "../../imports/crowd-arts-pr-2.png";
-import { ArrowRight, ExternalLink, Mail, Phone, ChevronDown, X, Send } from "lucide-react";
+import { ArrowRight, ExternalLink, Mail, ChevronDown, X, Send } from "lucide-react";
 
 import page2Img1 from "../../imports/pdf_images/page2_img1.jpeg";
 import page3Img2 from "../../imports/pdf_images/page3_img2.jpeg";
@@ -501,14 +501,6 @@ function Footer() {
             >
               <Mail className="w-5 h-5 text-[#FF2D2D]" />
               <span className="font-[Space_Grotesk] text-white text-sm">hello@crowdartspr.com</span>
-              <ArrowRight className="w-4 h-4 text-white/30 group-hover:text-[#FF2D2D] group-hover:translate-x-1 transition-all ml-auto" />
-            </a>
-            <a
-              href="tel:+5511947094768"
-              className="group flex items-center gap-3 border border-white/20 px-6 py-4 hover:border-[#FF2D2D] hover:bg-[#FF2D2D]/5 transition-all duration-300"
-            >
-              <Phone className="w-5 h-5 text-[#FF2D2D]" />
-              <span className="font-[Space_Grotesk] text-white text-sm">+55 11 94709-4768</span>
               <ArrowRight className="w-4 h-4 text-white/30 group-hover:text-[#FF2D2D] group-hover:translate-x-1 transition-all ml-auto" />
             </a>
           </div>

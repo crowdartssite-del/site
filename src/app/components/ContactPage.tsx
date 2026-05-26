@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
-import { ArrowLeft, Mail, Phone, MapPin, Send, Instagram, Linkedin } from "lucide-react";
+import { ArrowLeft, Mail, MapPin, Send, Instagram, Linkedin } from "lucide-react";
 import logoImg from "../../imports/crowd-arts-pr-2.png";
 
 export function ContactPage() {
@@ -111,20 +111,6 @@ export function ContactPage() {
                 <div>
                   <p className="font-[Space_Grotesk] text-white/40 text-xs tracking-wider uppercase mb-1">Email</p>
                   <p className="font-[Space_Grotesk] text-white text-base">hello@crowdartspr.com</p>
-                </div>
-              </motion.a>
-
-              <motion.a
-                href="tel:+5511947094768"
-                className="group flex items-start gap-4 border border-white/10 p-6 bg-white/[0.02] hover:border-[#FF2D2D]/30 hover:bg-[#FF2D2D]/5 transition-all duration-300"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-              >
-                <Phone className="w-5 h-5 text-[#FF2D2D] flex-shrink-0 mt-1" />
-                <div>
-                  <p className="font-[Space_Grotesk] text-white/40 text-xs tracking-wider uppercase mb-1">Phone</p>
-                  <p className="font-[Space_Grotesk] text-white text-base">+55 11 94709-4768</p>
                 </div>
               </motion.a>
 
