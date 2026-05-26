@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { FilmGrain } from "./components/FilmGrain";
 import { CursorFollower } from "./components/CursorFollower";
 import { HomePage } from "./components/HomePage";
-import { CasePage } from "./components/CasePage";
 import { ContactPage } from "./components/ContactPage";
 
 export default function App() {
@@ -18,7 +17,6 @@ export default function App() {
         <CursorFollower />
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/case/:caseId" element={<CasePage />} />
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
       </div>

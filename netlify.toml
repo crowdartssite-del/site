@@ -1,6 +1,10 @@
 [build]
   command = "npm run build"
   publish = "dist"
+  functions = "netlify/functions"
+
+[build.environment]
+  RESEND_API_KEY = "re_2PKRsxvp_NhNkwPxdRHyTGGb7LnqTNhSs"
 
 [[redirects]]
   from = "/*"

@@ -11,11 +11,29 @@ export function ContactPage() {
     company: "",
     message: "",
   });
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Form submission logic would go here
-    window.location.href = `mailto:beatriz@crowdartspr.com?subject=Contact from ${formData.name}&body=${formData.message}`;
+    setStatus("sending");
+    try {
+      const res = await fetch("/.netlify/functions/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...formData,
+          subject: `Contact from ${formData.name}`,
+        }),
+      });
+      if (res.ok) {
+        setStatus("success");
+        setFormData({ name: "", email: "", company: "", message: "" });
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -83,7 +101,7 @@ export function ContactPage() {
 
             <div className="space-y-6">
               <motion.a
-                href="mailto:beatriz@crowdartspr.com"
+                href="mailto:hello@crowdartspr.com"
                 className="group flex items-start gap-4 border border-white/10 p-6 bg-white/[0.02] hover:border-[#FF2D2D]/30 hover:bg-[#FF2D2D]/5 transition-all duration-300"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -92,7 +110,7 @@ export function ContactPage() {
                 <Mail className="w-5 h-5 text-[#FF2D2D] flex-shrink-0 mt-1" />
                 <div>
                   <p className="font-[Space_Grotesk] text-white/40 text-xs tracking-wider uppercase mb-1">Email</p>
-                  <p className="font-[Space_Grotesk] text-white text-base">beatriz@crowdartspr.com</p>
+                  <p className="font-[Space_Grotesk] text-white text-base">hello@crowdartspr.com</p>
                 </div>
               </motion.a>
 
@@ -154,74 +172,109 @@ export function ContactPage() {
               Send us a Message
             </h2>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label className="font-[Space_Grotesk] text-white/60 text-xs tracking-wider uppercase mb-2 block">
-                  Your Name *
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  required
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="w-full bg-transparent border border-white/10 px-4 py-3 text-white font-[Space_Grotesk] focus:border-[#FF2D2D] focus:outline-none transition-colors"
-                  placeholder="John Doe"
-                />
-              </div>
-
-              <div>
-                <label className="font-[Space_Grotesk] text-white/60 text-xs tracking-wider uppercase mb-2 block">
-                  Email Address *
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full bg-transparent border border-white/10 px-4 py-3 text-white font-[Space_Grotesk] focus:border-[#FF2D2D] focus:outline-none transition-colors"
-                  placeholder="john@example.com"
-                />
-              </div>
-
-              <div>
-                <label className="font-[Space_Grotesk] text-white/60 text-xs tracking-wider uppercase mb-2 block">
-                  Company / Artist Name
-                </label>
-                <input
-                  type="text"
-                  name="company"
-                  value={formData.company}
-                  onChange={handleChange}
-                  className="w-full bg-transparent border border-white/10 px-4 py-3 text-white font-[Space_Grotesk] focus:border-[#FF2D2D] focus:outline-none transition-colors"
-                  placeholder="Your Company"
-                />
-              </div>
-
-              <div>
-                <label className="font-[Space_Grotesk] text-white/60 text-xs tracking-wider uppercase mb-2 block">
-                  Your Message *
-                </label>
-                <textarea
-                  name="message"
-                  required
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows={6}
-                  className="w-full bg-transparent border border-white/10 px-4 py-3 text-white font-[Space_Grotesk] focus:border-[#FF2D2D] focus:outline-none transition-colors resize-none"
-                  placeholder="Tell us about your project..."
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="w-full md:w-auto inline-flex items-center justify-center gap-3 border border-[#FF2D2D] bg-[#FF2D2D]/10 px-8 py-4 hover:bg-[#FF2D2D] hover:text-[#080808] transition-all duration-300 group"
+            {status === "success" ? (
+              <motion.div
+                className="border border-white/10 p-12 text-center"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
               >
-                <span className="font-[Space_Grotesk] text-sm tracking-wider uppercase">Send Message</span>
-                <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </form>
+                <div className="w-16 h-16 mx-auto mb-6 border-2 border-[#FF2D2D] rounded-full flex items-center justify-center">
+                  <svg className="w-8 h-8 text-[#FF2D2D]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                </div>
+                <h3 className="font-[Montserrat] text-white text-2xl font-bold mb-2">Message Sent!</h3>
+                <p className="font-[Space_Grotesk] text-white/60 text-sm">
+                  Thank you for reaching out. Our team will get back to you shortly.
+                </p>
+                <button
+                  onClick={() => setStatus("idle")}
+                  className="mt-6 font-[Space_Grotesk] text-[#FF2D2D] text-sm tracking-wider uppercase hover:text-white transition-colors"
+                >
+                  Send Another Message
+                </button>
+              </motion.div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <label className="font-[Space_Grotesk] text-white/60 text-xs tracking-wider uppercase mb-2 block">
+                    Your Name *
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    required
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="w-full bg-transparent border border-white/10 px-4 py-3 text-white font-[Space_Grotesk] focus:border-[#FF2D2D] focus:outline-none transition-colors"
+                    placeholder="John Doe"
+                  />
+                </div>
+
+                <div>
+                  <label className="font-[Space_Grotesk] text-white/60 text-xs tracking-wider uppercase mb-2 block">
+                    Email Address *
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="w-full bg-transparent border border-white/10 px-4 py-3 text-white font-[Space_Grotesk] focus:border-[#FF2D2D] focus:outline-none transition-colors"
+                    placeholder="john@example.com"
+                  />
+                </div>
+
+                <div>
+                  <label className="font-[Space_Grotesk] text-white/60 text-xs tracking-wider uppercase mb-2 block">
+                    Company / Artist Name
+                  </label>
+                  <input
+                    type="text"
+                    name="company"
+                    value={formData.company}
+                    onChange={handleChange}
+                    className="w-full bg-transparent border border-white/10 px-4 py-3 text-white font-[Space_Grotesk] focus:border-[#FF2D2D] focus:outline-none transition-colors"
+                    placeholder="Your Company"
+                  />
+                </div>
+
+                <div>
+                  <label className="font-[Space_Grotesk] text-white/60 text-xs tracking-wider uppercase mb-2 block">
+                    Your Message *
+                  </label>
+                  <textarea
+                    name="message"
+                    required
+                    value={formData.message}
+                    onChange={handleChange}
+                    rows={6}
+                    className="w-full bg-transparent border border-white/10 px-4 py-3 text-white font-[Space_Grotesk] focus:border-[#FF2D2D] focus:outline-none transition-colors resize-none"
+                    placeholder="Tell us about your project..."
+                  />
+                </div>
+
+                {status === "error" && (
+                  <p className="font-[Space_Grotesk] text-[#FF2D2D] text-sm text-center">
+                    Something went wrong. Please try again.
+                  </p>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={status === "sending"}
+                  className="w-full md:w-auto inline-flex items-center justify-center gap-3 border border-[#FF2D2D] bg-[#FF2D2D]/10 px-8 py-4 hover:bg-[#FF2D2D] hover:text-[#080808] transition-all duration-300 group disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {status === "sending" ? (
+                    <span className="font-[Space_Grotesk] text-sm tracking-wider uppercase animate-pulse">Sending...</span>
+                  ) : (
+                    <>
+                      <span className="font-[Space_Grotesk] text-sm tracking-wider uppercase">Send Message</span>
+                      <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </>
+                  )}
+                </button>
+              </form>
+            )}
           </motion.div>
         </div>
       </section>
@@ -236,7 +289,7 @@ export function ContactPage() {
             {[
               {
                 title: "Cultural Expertise",
-                desc: "Deep understanding of both K-pop global standards and Latin American cultural nuances. We speak both languages — literally and culturally.",
+                desc: "Deep understanding of both Asian Pop global standards and Latin American cultural nuances. We speak both languages — literally and culturally.",
               },
               {
                 title: "Proven Track Record",

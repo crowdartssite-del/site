@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform, useInView } from "motion/react";
 import logoImg from "../../imports/crowd-arts-pr-2.png";
-import { ArrowRight, ExternalLink, Mail, Phone, ChevronDown } from "lucide-react";
+import { ArrowRight, ExternalLink, Mail, Phone, ChevronDown, X, Send } from "lucide-react";
 
 import page2Img1 from "../../imports/pdf_images/page2_img1.jpeg";
 import page3Img2 from "../../imports/pdf_images/page3_img2.jpeg";
@@ -140,7 +140,7 @@ function Hero() {
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 1 }}
         >
-          Boutique PR agency bridging K-pop and Latin American culture.
+          Boutique PR agency bridging Asian Pop and Latin American culture.
           <br />Multi-territory 360 campaigns. Cultural strategy. Record-breaking results.
         </motion.p>
 
@@ -185,15 +185,15 @@ function About() {
         <AnimatedText>
           <p className="font-[Space_Grotesk] text-white/40 text-xs tracking-[0.4em] uppercase mb-4">The Agency</p>
           <h2 className="font-[Montserrat] text-white text-[clamp(2rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.03em]" style={{ fontWeight: 800 }}>
-            THE PRIMARY <span className="text-[#FF2D2D]">LIAISON</span> BETWEEN SOUTH KOREAN MANAGEMENT & LATIN AMERICA
+            THE PRIMARY <span className="text-[#FF2D2D]">LIAISON</span> BETWEEN ASIAN MANAGEMENT & LATIN AMERICA
           </h2>
         </AnimatedText>
         <AnimatedText delay={0.2}>
           <p className="font-[Space_Grotesk] text-white/60 leading-relaxed mt-4 text-[0.95rem]">
-            Crowd Arts PR acts as the primary liaison between South Korean management (JYP) and Latin American stakeholders to ensure flawless execution. A multi-territory 360 PR campaign combining mainstream media presence, high-stakes festival negotiations, and strategic cultural crossovers.
+            Crowd Arts PR acts as the primary liaison between Asian management and Latin American stakeholders to ensure flawless execution. A multi-territory 360 PR campaign combining mainstream media presence, high-stakes festival negotiations, and strategic cultural crossovers.
           </p>
           <p className="font-[Space_Grotesk] text-white/60 leading-relaxed mt-4 text-[0.95rem]">
-            Establishing NMIXX as a household name in the diverse markets of Mexico, Chile, and Brazil by bridging the gap between K-pop global standards and local cultural nuances.
+            Establishing NMIXX as a household name in the diverse markets of Mexico, Chile, and Brazil by bridging the gap between Asian Pop global standards and local cultural nuances.
           </p>
         </AnimatedText>
       </div>
@@ -234,7 +234,7 @@ const cases = [
     id: "carnival",
     tag: "BRAZIL 2026",
     title: "NMIXX @ BRAZILIAN CARNIVAL",
-    subtitle: "First K-Pop act in history to perform at Brazilian Carnival",
+    subtitle: "First Asian Pop act in history to perform at Brazilian Carnival",
     img: carnivalImg,
     metrics: ["2M Live Audience", "1.2M+ Mentions", "1,000+ Media Articles", "400% Google Surge"],
   },
@@ -280,7 +280,7 @@ const cases = [
   },
 ];
 
-function CasesSection() {
+function CasesSection({ onSelectCase }: { onSelectCase: (c: typeof cases[0]) => void }) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -300,14 +300,14 @@ function CasesSection() {
         style={{ scrollbarWidth: "none" }}
       >
         {cases.map((c, i) => (
-          <CaseCard key={c.id} data={c} index={i} />
+          <CaseCard key={c.id} data={c} index={i} onSelectCase={onSelectCase} />
         ))}
       </div>
     </section>
   );
 }
 
-function CaseCard({ data, index }: { data: typeof cases[0]; index: number }) {
+function CaseCard({ data, index, onSelectCase }: { data: typeof cases[0]; index: number; onSelectCase: (c: typeof cases[0]) => void }) {
   return (
     <motion.div
       className="snap-start flex-shrink-0 w-[85vw] md:w-[600px] lg:w-[700px] group"
@@ -316,7 +316,7 @@ function CaseCard({ data, index }: { data: typeof cases[0]; index: number }) {
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.7, delay: index * 0.1 }}
     >
-      <Link to={`/case/${data.id}`}>
+      <div onClick={() => onSelectCase(data)} className="cursor-pointer">
         <div className="relative overflow-hidden border border-white/10 bg-[#0c0c0c] hover:border-[#FF2D2D]/30 transition-all duration-300">
           {/* Image */}
           <div className="relative h-[300px] md:h-[380px] overflow-hidden">
@@ -352,13 +352,13 @@ function CaseCard({ data, index }: { data: typeof cases[0]; index: number }) {
 
             <div className="flex items-center gap-2 mt-6 text-[#FF2D2D] group-hover:translate-x-2 transition-transform">
               <span className="font-[Space_Grotesk] text-xs tracking-wider uppercase">
-                View Case Study
+                Unlock Case Study
               </span>
               <ArrowRight className="w-3 h-3" />
             </div>
           </div>
         </div>
-      </Link>
+      </div>
     </motion.div>
   );
 }
@@ -369,7 +369,7 @@ function Services() {
     {
       num: "01",
       title: "Strategic Booking & Liaison",
-      desc: "Primary intermediary between Korean management and Latin American festival organizers, media, and stakeholders. Direct negotiation for historic bookings.",
+      desc: "Primary intermediary between Asian management and Latin American festival organizers, media, and stakeholders. Direct negotiation for historic bookings.",
     },
     {
       num: "02",
@@ -439,8 +439,8 @@ function ImpactSection() {
       <div className="absolute inset-0" style={{ backgroundImage: `url(${carnivalImg})`, backgroundSize: "cover", backgroundPosition: "center", filter: "saturate(0) contrast(1.5) brightness(0.15)", mixBlendMode: "multiply" }} />
       <div className="relative z-10 max-w-[1400px] mx-auto">
         <AnimatedText>
-          <p className="font-[Space_Grotesk] text-[#080808] text-xs tracking-[0.4em] uppercase mb-4">Global Impact</p>
-          <h2 className="font-[Montserrat] text-[#080808] text-[clamp(2rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.03em] mb-12" style={{ fontWeight: 800 }}>
+          <p className="font-[Space_Grotesk] text-white/80 text-xs tracking-[0.4em] uppercase mb-4">Global Impact</p>
+          <h2 className="font-[Montserrat] text-white text-[clamp(2rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.03em] mb-12" style={{ fontWeight: 800 }}>
             DRIVING GLOBAL VIRALITY THROUGH STRATEGIC INFLUENCE
           </h2>
         </AnimatedText>
@@ -454,8 +454,8 @@ function ImpactSection() {
                 { label: "Platform Dominance", text: "High-impact challenges and storytelling across TikTok, Instagram, and YouTube." },
               ].map((item) => (
                 <div key={item.label}>
-                  <span className="font-[Space_Grotesk] text-[#080808] text-sm tracking-wider" style={{ fontWeight: 700 }}>{item.label}</span>
-                  <p className="font-[Space_Grotesk] text-[#080808]/70 text-sm mt-1 leading-relaxed">{item.text}</p>
+                  <span className="font-[Space_Grotesk] text-white text-sm tracking-wider" style={{ fontWeight: 700 }}>{item.label}</span>
+                  <p className="font-[Space_Grotesk] text-white/80 text-sm mt-1 leading-relaxed">{item.text}</p>
                 </div>
               ))}
             </div>
@@ -465,12 +465,12 @@ function ImpactSection() {
               {[
                 { label: "Viral Momentum", text: "100M+ Total Impressions across the Americas." },
                 { label: "Chart Power", text: "Top charts entries and massive streaming spikes in key LatAm markets." },
-                { label: "Cultural Authority", text: "Solidified NMIXX as a global player by merging K-pop with Western digital culture." },
+                { label: "Cultural Authority", text: "Solidified NMIXX as a global player by merging Asian Pop with Western digital culture." },
                 { label: "Market Expansion", text: "Active engagement hubs in Brazil, Mexico, Argentina, Colombia, and Chile." },
               ].map((item) => (
                 <div key={item.label}>
-                  <span className="font-[Space_Grotesk] text-[#080808] text-sm tracking-wider" style={{ fontWeight: 700 }}>{item.label}</span>
-                  <p className="font-[Space_Grotesk] text-[#080808]/70 text-sm mt-1 leading-relaxed">{item.text}</p>
+                  <span className="font-[Space_Grotesk] text-white text-sm tracking-wider" style={{ fontWeight: 700 }}>{item.label}</span>
+                  <p className="font-[Space_Grotesk] text-white/80 text-sm mt-1 leading-relaxed">{item.text}</p>
                 </div>
               ))}
             </div>
@@ -496,11 +496,11 @@ function Footer() {
         <AnimatedText delay={0.2}>
           <div className="mt-12 flex flex-col md:flex-row gap-8">
             <a
-              href="mailto:beatriz@crowdartspr.com"
+              href="mailto:hello@crowdartspr.com"
               className="group flex items-center gap-3 border border-white/20 px-6 py-4 hover:border-[#FF2D2D] hover:bg-[#FF2D2D]/5 transition-all duration-300"
             >
               <Mail className="w-5 h-5 text-[#FF2D2D]" />
-              <span className="font-[Space_Grotesk] text-white text-sm">beatriz@crowdartspr.com</span>
+              <span className="font-[Space_Grotesk] text-white text-sm">hello@crowdartspr.com</span>
               <ArrowRight className="w-4 h-4 text-white/30 group-hover:text-[#FF2D2D] group-hover:translate-x-1 transition-all ml-auto" />
             </a>
             <a
@@ -556,7 +556,126 @@ function Nav() {
   );
 }
 
+function CaseModal({ caseData, onClose }: { caseData: typeof cases[0]; onClose: () => void }) {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    company: "",
+    message: `I'd like to know more about the ${caseData.title} case study.`,
+  });
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("sending");
+    try {
+      const res = await fetch("/.netlify/functions/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...formData,
+          subject: `Case Study Inquiry: ${caseData.title}`,
+        }),
+      });
+      if (res.ok) {
+        setStatus("success");
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-[#080808]/80 backdrop-blur-md" onClick={onClose} />
+      <motion.div 
+        className="relative bg-[#0c0c0c] border border-white/10 p-8 w-full max-w-lg max-h-[90vh] overflow-y-auto"
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+      >
+        <button onClick={onClose} className="absolute top-3 right-3 p-3 text-white/50 hover:text-white transition-colors z-10">
+          <X className="w-6 h-6" />
+        </button>
+
+        {status === "success" ? (
+          <motion.div
+            className="text-center py-8"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+          >
+            <div className="w-16 h-16 mx-auto mb-6 border-2 border-[#FF2D2D] rounded-full flex items-center justify-center">
+              <svg className="w-8 h-8 text-[#FF2D2D]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+            </div>
+            <h3 className="font-[Montserrat] text-white text-2xl font-bold mb-2">Message Sent!</h3>
+            <p className="font-[Space_Grotesk] text-white/60 text-sm mb-6">
+              Thank you for your interest in <strong>{caseData.title}</strong>. Our team will get back to you shortly.
+            </p>
+            <button onClick={onClose} className="font-[Space_Grotesk] text-[#FF2D2D] text-sm tracking-wider uppercase hover:text-white transition-colors">
+              Close
+            </button>
+          </motion.div>
+        ) : (
+          <>
+            <h3 className="font-[Montserrat] text-white text-2xl font-bold mb-2">Unlock Case Study</h3>
+            <p className="font-[Space_Grotesk] text-white/60 text-sm mb-6">
+              Fill out this form to request more details about the <strong>{caseData.title}</strong> project.
+            </p>
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="font-[Space_Grotesk] text-white/60 text-xs tracking-wider uppercase mb-1 block">Your Name *</label>
+                <input required type="text" name="name" value={formData.name} onChange={handleChange} className="w-full bg-transparent border border-white/10 px-4 py-3 text-white font-[Space_Grotesk] focus:border-[#FF2D2D] focus:outline-none" />
+              </div>
+              <div>
+                <label className="font-[Space_Grotesk] text-white/60 text-xs tracking-wider uppercase mb-1 block">Email Address *</label>
+                <input required type="email" name="email" value={formData.email} onChange={handleChange} className="w-full bg-transparent border border-white/10 px-4 py-3 text-white font-[Space_Grotesk] focus:border-[#FF2D2D] focus:outline-none" />
+              </div>
+              <div>
+                <label className="font-[Space_Grotesk] text-white/60 text-xs tracking-wider uppercase mb-1 block">Company</label>
+                <input type="text" name="company" value={formData.company} onChange={handleChange} className="w-full bg-transparent border border-white/10 px-4 py-3 text-white font-[Space_Grotesk] focus:border-[#FF2D2D] focus:outline-none" />
+              </div>
+              <div>
+                <label className="font-[Space_Grotesk] text-white/60 text-xs tracking-wider uppercase mb-1 block">Message *</label>
+                <textarea required name="message" value={formData.message} onChange={handleChange} rows={3} className="w-full bg-transparent border border-white/10 px-4 py-3 text-white font-[Space_Grotesk] focus:border-[#FF2D2D] focus:outline-none resize-none" />
+              </div>
+
+              {status === "error" && (
+                <p className="font-[Space_Grotesk] text-[#FF2D2D] text-sm text-center">
+                  Something went wrong. Please try again.
+                </p>
+              )}
+
+              <button
+                type="submit"
+                disabled={status === "sending"}
+                className="w-full flex items-center justify-center gap-2 border border-[#FF2D2D] bg-[#FF2D2D]/10 px-6 py-4 hover:bg-[#FF2D2D] hover:text-[#080808] transition-all mt-4 group disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {status === "sending" ? (
+                  <span className="font-[Space_Grotesk] text-sm uppercase tracking-wider animate-pulse">Sending...</span>
+                ) : (
+                  <>
+                    <span className="font-[Space_Grotesk] text-sm uppercase tracking-wider">Request Details</span>
+                    <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </>
+                )}
+              </button>
+            </form>
+          </>
+        )}
+      </motion.div>
+    </div>
+  );
+}
+
 export function HomePage() {
+  const [selectedCase, setSelectedCase] = useState<typeof cases[0] | null>(null);
+
   return (
     <>
       <Nav />
@@ -564,10 +683,11 @@ export function HomePage() {
       <Marquee />
       <About />
       <Stats />
-      <CasesSection />
+      <CasesSection onSelectCase={setSelectedCase} />
       <ImpactSection />
       <Services />
       <Footer />
+      {selectedCase && <CaseModal caseData={selectedCase} onClose={() => setSelectedCase(null)} />}
     </>
   );
 }
