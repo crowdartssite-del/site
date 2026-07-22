@@ -55,7 +55,7 @@ export default async (req: Request, _context: Context) => {
       );
     }
 
-    const toAddress = process.env.TO_EMAIL || "hello@crowdartspr.com";
+    const toAddress = process.env.TO_EMAIL || "crowdartssite@gmail.com";
     const fromAddress = process.env.FROM_EMAIL || "Crowd Arts Website <onboarding@resend.dev>";
 
     const { data, error } = await resend.emails.send({
