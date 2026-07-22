@@ -13,9 +13,12 @@ export function ContactPage() {
   });
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
 
+  const [errorMessage, setErrorMessage] = useState<string>("");
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("sending");
+    setErrorMessage("");
     try {
       const res = await fetch("/.netlify/functions/send-email", {
         method: "POST",
@@ -30,11 +33,14 @@ export function ContactPage() {
         setFormData({ name: "", email: "", company: "", message: "" });
       } else {
         const errorData = await res.json().catch(() => ({}));
-        console.error("Form submission failed:", errorData.error || res.statusText);
+        const msg = errorData.error || `Error ${res.status}: ${res.statusText}`;
+        console.error("Form submission failed:", msg);
+        setErrorMessage(msg);
         setStatus("error");
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error("Form submission network error:", err);
+      setErrorMessage("Network error. Please try again.");
       setStatus("error");
     }
   };
@@ -244,7 +250,7 @@ export function ContactPage() {
 
                 {status === "error" && (
                   <p className="font-[Space_Grotesk] text-[#FF2D2D] text-sm text-center">
-                    Something went wrong. Please try again.
+                    {errorMessage || "Something went wrong. Please try again."}
                   </p>
                 )}
 

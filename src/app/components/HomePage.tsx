@@ -558,10 +558,12 @@ function CaseModal({ caseData, onClose }: { caseData: typeof cases[0]; onClose: 
     message: `I'd like to know more about the ${caseData.title} case study.`,
   });
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("sending");
+    setErrorMessage("");
     try {
       const res = await fetch("/.netlify/functions/send-email", {
         method: "POST",
@@ -575,11 +577,14 @@ function CaseModal({ caseData, onClose }: { caseData: typeof cases[0]; onClose: 
         setStatus("success");
       } else {
         const errorData = await res.json().catch(() => ({}));
-        console.error("Case modal form submission failed:", errorData.error || res.statusText);
+        const msg = errorData.error || `Error ${res.status}: ${res.statusText}`;
+        console.error("Case modal form submission failed:", msg);
+        setErrorMessage(msg);
         setStatus("error");
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error("Case modal submission network error:", err);
+      setErrorMessage("Network error. Please try again.");
       setStatus("error");
     }
   };
@@ -644,7 +649,7 @@ function CaseModal({ caseData, onClose }: { caseData: typeof cases[0]; onClose: 
 
               {status === "error" && (
                 <p className="font-[Space_Grotesk] text-[#FF2D2D] text-sm text-center">
-                  Something went wrong. Please try again.
+                  {errorMessage || "Something went wrong. Please try again."}
                 </p>
               )}
 
