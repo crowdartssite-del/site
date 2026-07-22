@@ -5,6 +5,9 @@ import logoImg from "../../imports/crowd-arts-pr-2.png";
 import { ArrowRight, ExternalLink, Mail, ChevronDown, X, Send } from "lucide-react";
 
 import heroBannerImg from "../../imports/hero_banner.jpg";
+import caseTvImg from "../../imports/case_tv.jpg";
+import casePurpleShowImg from "../../imports/case_purple_show.jpg";
+import caseVinaColorfulImg from "../../imports/case_vina_colorful.jpg";
 
 import page2Img1 from "../../imports/pdf_images/page2_img1.jpeg";
 import page3Img2 from "../../imports/pdf_images/page3_img2.jpeg";
@@ -17,10 +20,10 @@ import page10Img1 from "../../imports/pdf_images/page10_img1.jpeg";
 const heroImg = heroBannerImg;
 const carnivalImg = page9Img1;
 const mexeImg = page5Img1;
-const vinaImg = page10Img1;
+const vinaImg = caseVinaColorfulImg;
 const latinImg = page7Img1;
-const brazilMediaImg = page4Img1;
-const chileMexicoImg = page3Img2;
+const brazilMediaImg = caseTvImg;
+const chileMexicoImg = casePurpleShowImg;
 
 function AnimatedText({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const ref = useRef(null);
