@@ -572,9 +572,12 @@ function CaseModal({ caseData, onClose }: { caseData: typeof cases[0]; onClose: 
       if (res.ok) {
         setStatus("success");
       } else {
+        const errorData = await res.json().catch(() => ({}));
+        console.error("Case modal form submission failed:", errorData.error || res.statusText);
         setStatus("error");
       }
-    } catch {
+    } catch (err) {
+      console.error("Case modal submission network error:", err);
       setStatus("error");
     }
   };

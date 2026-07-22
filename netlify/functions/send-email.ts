@@ -1,7 +1,7 @@
 import type { Context } from "@netlify/functions";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const apiKey = process.env.RESEND_API_KEY;
 
 export default async (req: Request, _context: Context) => {
   // Handle CORS preflight
@@ -23,6 +23,22 @@ export default async (req: Request, _context: Context) => {
     });
   }
 
+  if (!apiKey) {
+    console.error("RESEND_API_KEY is missing from environment variables.");
+    return new Response(
+      JSON.stringify({ error: "RESEND_API_KEY environment variable is missing." }),
+      {
+        status: 500,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
+    );
+  }
+
+  const resend = new Resend(apiKey);
+
   try {
     const { name, email, company, message, subject } = await req.json();
 
@@ -39,9 +55,12 @@ export default async (req: Request, _context: Context) => {
       );
     }
 
+    const toAddress = process.env.TO_EMAIL || "hello@crowdartspr.com";
+    const fromAddress = process.env.FROM_EMAIL || "Crowd Arts Website <onboarding@resend.dev>";
+
     const { data, error } = await resend.emails.send({
-      from: "Crowd Arts Website <onboarding@resend.dev>",
-      to: ["hello@crowdartspr.com"],
+      from: fromAddress,
+      to: [toAddress],
       replyTo: email,
       subject: subject || `New inquiry from ${name}`,
       html: `

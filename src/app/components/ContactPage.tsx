@@ -29,9 +29,12 @@ export function ContactPage() {
         setStatus("success");
         setFormData({ name: "", email: "", company: "", message: "" });
       } else {
+        const errorData = await res.json().catch(() => ({}));
+        console.error("Form submission failed:", errorData.error || res.statusText);
         setStatus("error");
       }
-    } catch {
+    } catch (err) {
+      console.error("Form submission network error:", err);
       setStatus("error");
     }
   };
