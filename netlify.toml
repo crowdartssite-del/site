@@ -3,9 +3,6 @@
   publish = "dist"
   functions = "netlify/functions"
 
-[build.environment]
-  RESEND_API_KEY = "re_TnBaHMcM_22kNcNSLXsdy6XWGSdgcf5sG"
-
 
 [[redirects]]
   from = "/*"
