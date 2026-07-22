@@ -4,6 +4,8 @@ import { motion, useScroll, useTransform, useInView } from "motion/react";
 import logoImg from "../../imports/crowd-arts-pr-2.png";
 import { ArrowRight, ExternalLink, Mail, ChevronDown, X, Send } from "lucide-react";
 
+import heroBannerImg from "../../imports/hero_banner.jpg";
+
 import page2Img1 from "../../imports/pdf_images/page2_img1.jpeg";
 import page3Img2 from "../../imports/pdf_images/page3_img2.jpeg";
 import page4Img1 from "../../imports/pdf_images/page4_img1.jpeg";
@@ -12,7 +14,7 @@ import page7Img1 from "../../imports/pdf_images/page7_img1.jpeg";
 import page9Img1 from "../../imports/pdf_images/page9_img1.jpeg";
 import page10Img1 from "../../imports/pdf_images/page10_img1.jpeg";
 
-const heroImg = page2Img1;
+const heroImg = heroBannerImg;
 const carnivalImg = page9Img1;
 const mexeImg = page5Img1;
 const vinaImg = page10Img1;
