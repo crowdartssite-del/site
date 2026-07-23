@@ -9,6 +9,7 @@ import caseTvImg from "../../imports/case_tv.jpg";
 import casePurpleShowImg from "../../imports/case_purple_show.jpg";
 import caseVinaColorfulImg from "../../imports/case_vina_colorful.jpg";
 import caseMixerImg from "../../imports/case_mixer.jpg";
+import caseCarnivalImg from "../../imports/case_carnival.jpg";
 
 import page2Img1 from "../../imports/pdf_images/page2_img1.jpeg";
 import page3Img2 from "../../imports/pdf_images/page3_img2.jpeg";
@@ -19,7 +20,7 @@ import page9Img1 from "../../imports/pdf_images/page9_img1.jpeg";
 import page10Img1 from "../../imports/pdf_images/page10_img1.jpeg";
 
 const heroImg = heroBannerImg;
-const carnivalImg = page9Img1;
+const carnivalImg = caseCarnivalImg;
 const mexeImg = caseMixerImg;
 const vinaImg = caseVinaColorfulImg;
 const latinImg = page7Img1;
