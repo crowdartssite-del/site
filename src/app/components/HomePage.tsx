@@ -8,6 +8,7 @@ import heroBannerImg from "../../imports/hero_banner.jpg";
 import caseTvImg from "../../imports/case_tv.jpg";
 import casePurpleShowImg from "../../imports/case_purple_show.jpg";
 import caseVinaColorfulImg from "../../imports/case_vina_colorful.jpg";
+import caseMixerImg from "../../imports/case_mixer.jpg";
 
 import page2Img1 from "../../imports/pdf_images/page2_img1.jpeg";
 import page3Img2 from "../../imports/pdf_images/page3_img2.jpeg";
@@ -19,7 +20,7 @@ import page10Img1 from "../../imports/pdf_images/page10_img1.jpeg";
 
 const heroImg = heroBannerImg;
 const carnivalImg = page9Img1;
-const mexeImg = page5Img1;
+const mexeImg = caseMixerImg;
 const vinaImg = caseVinaColorfulImg;
 const latinImg = page7Img1;
 const brazilMediaImg = caseTvImg;
@@ -258,14 +259,6 @@ const cases = [
     subtitle: "The Ultimate Booking Milestone",
     img: vinaImg,
     metrics: ["Gaviota de Oro & Plata", "4.5M+ Live Viewers", "$3.2M USD EMV", "90% Retention"],
-  },
-  {
-    id: "blue-valentine",
-    tag: "CAMPAIGN 2025",
-    title: '"BLUE VALENTINE" & LATIN AMERICA',
-    subtitle: "From Niche to Mainstream Artistic Force",
-    img: latinImg,
-    metrics: ["100+ Placements", "85% Approval", "+42% Social Surge", "13.2M Creator Reach"],
   },
   {
     id: "brazil-media",
